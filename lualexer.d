@@ -18,11 +18,6 @@ private enum dynamicTokens = [
 	"stringLiteral", "comment", "identifier", "numberLiteral", "whitespace"
 ];
 
-private enum pseudoTokens = [
-	"[", "--", "\"", "'", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", " ",
-	"\t", "\r", "\n"
-];
-
 private enum tokenHandlers = [
 	"[", "lexBracket",
 	"\"", "lexStringLiteral",
@@ -59,8 +54,8 @@ alias Token = TokenStructure!(IdType, extraFields);
 
 struct LuaLexer
 {
-	mixin Lexer!(IdType, Token, lexIdentifier, operators, dynamicTokens,
-		pseudoTokens, tokenHandlers, keywords);
+	mixin Lexer!(IdType, Token, lexIdentifier, isSeparating, operators,
+		dynamicTokens, tokenHandlers, keywords);
 
 	this(ubyte[] source, StringCache* cache)
 	{
