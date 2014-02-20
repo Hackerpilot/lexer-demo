@@ -54,12 +54,12 @@ alias Token = TokenStructure!(IdType, extraFields);
 
 struct LuaLexer
 {
-	mixin Lexer!(IdType, Token, lexIdentifier, isSeparating, operators,
-		dynamicTokens, tokenHandlers, keywords);
+	mixin Lexer!(Token, lexIdentifier, isSeparating, operators,
+		dynamicTokens, keywords, tokenHandlers);
 
 	this(ubyte[] source, StringCache* cache)
 	{
-		this.range = source;
+		this.range = LexerRange(source);
 		this.cache = cache;
 		popFront();
 	}
